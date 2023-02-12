@@ -12,6 +12,8 @@ refs.searchBox.addEventListener('input', debounce(onSearch, DEBOUNCE_DELAY));
 
 function onSearch() {
   const searchCountry = refs.searchBox.value.trim();
+
+  clearMarkup();
   if (!searchCountry) return;
   console.log(refs.searchBox.value);
 
@@ -29,8 +31,8 @@ function renderCountry(country) {
   if (country.length === 1) markupCounryInfo(country);
 }
 
-function markupCounryList(countres) {
-  const markupList = countres
+function markupCounryList(countries) {
+  const markup = countries
     .map(
       ({ name, flags }) =>
         `<li class = "country-item">
@@ -40,9 +42,32 @@ function markupCounryList(countres) {
     )
     .join('');
 
-  refs.countryList.innerHTML = markupList;
+  refs.countryList.innerHTML = markup;
 }
 
-function markupCounryInfo(countres) {
-  const markupInfo = countres;
+function markupCounryInfo(countries) {
+  const markup = countries
+    .map(
+      ({ name, capital, population, languages, flags }) =>
+        `<div class = "country-item">
+            <img src = ${flags.svg} class = "flag" alt = "flag">
+            <h1 name = "country">${name.official}</h1>
+        </div>
+        <p class = "country-info">Capital:
+        <span class = "country-info-description">${capital}</span></p>
+        <p class = "country-info">Population:
+        <span class = "country-info-description">${population}</span></p>
+        <p class = "country-info">Languages:
+        <span class = "country-info-description">${Object.values(
+          languages
+        ).join(',')}</span></p>`
+    )
+    .join('');
+
+  refs.countryInfo.innerHTML = markup;
+}
+
+function clearMarkup() {
+  refs.countryList.innerHTML = '';
+  refs.countryInfo.innerHTML = '';
 }

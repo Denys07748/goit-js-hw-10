@@ -58,7 +58,7 @@ function markupCounryInfo(countries) {
             <p class = "country-info">Languages:
             <span class = "country-info-description">${Object.values(
               languages
-            ).join(',')}</span></p>`;
+            ).join(', ')}</span></p>`;
 
   refs.countryInfo.innerHTML = markup;
 }

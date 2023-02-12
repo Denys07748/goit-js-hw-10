@@ -15,7 +15,6 @@ function onSearch() {
 
   clearMarkup();
   if (!searchCountry) return;
-  console.log(refs.searchBox.value);
 
   fetchCountries(searchCountry)
     .then(renderCountry)
@@ -46,23 +45,20 @@ function markupCounryList(countries) {
 }
 
 function markupCounryInfo(countries) {
-  const markup = countries
-    .map(
-      ({ name, capital, population, languages, flags }) =>
-        `<div class = "country-item">
-            <img src = ${flags.svg} class = "flag" alt = "flag">
-            <h1 name = "country">${name.official}</h1>
-        </div>
-        <p class = "country-info">Capital:
-        <span class = "country-info-description">${capital}</span></p>
-        <p class = "country-info">Population:
-        <span class = "country-info-description">${population}</span></p>
-        <p class = "country-info">Languages:
-        <span class = "country-info-description">${Object.values(
-          languages
-        ).join(',')}</span></p>`
-    )
-    .join('');
+  const { name, capital, population, languages, flags } = countries[0];
+
+  const markup = `<div class = "country-item">
+                <img src = ${flags.svg} class = "flag" alt = "flag">
+                <h1 name = "country">${name.official}</h1>
+            </div>
+            <p class = "country-info">Capital:
+            <span class = "country-info-description">${capital}</span></p>
+            <p class = "country-info">Population:
+            <span class = "country-info-description">${population}</span></p>
+            <p class = "country-info">Languages:
+            <span class = "country-info-description">${Object.values(
+              languages
+            ).join(',')}</span></p>`;
 
   refs.countryInfo.innerHTML = markup;
 }
